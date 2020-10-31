@@ -197,7 +197,7 @@ void  Key_CallBack(Key_Message index)
 				TIM5CH1_CAPTURE_STA = 0;//¿ªÆôÏÂÒ»´Î²¶»ñ
 				res = temp / 1000.00 / 1000.00;
 				//res = (res*10);
-				printf("HIGH/1000====%d\r\n", (uint32_t)(res*res*1250));
+				printf("HIGH/1000====%d\r\n", (uint32_t)(res*res*1250));////输出毫米
 				flag = 0;
 			}
 			
