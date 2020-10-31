@@ -53,6 +53,7 @@ uint32_t temp = 0;
 uint16_t KeyValue_t = 0xffff; uint16_t lastvalue_t = 0xffff;
 Key_Message keys[2] = { 0 };
 uint8_t flag = 0;
+float res;
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 
@@ -194,7 +195,9 @@ void  Key_CallBack(Key_Message index)
 				temp += TIM5CH1_CAPTURE_VAL;//µÃµ½×ÜµÄ¸ßµçÆ½Ê±¼ä
 				printf("HIGH:%d us\r\n", temp);//´òÓ¡×ÜµÄ¸ßµãÆ½Ê±¼ä
 				TIM5CH1_CAPTURE_STA = 0;//¿ªÆôÏÂÒ»´Î²¶»ñ
-				
+				res = temp / 1000.00 / 1000.00;
+				//res = (res*10);
+				printf("HIGH/1000====%d\r\n", (uint32_t)(res*res*1250));
 				flag = 0;
 			}
 			
