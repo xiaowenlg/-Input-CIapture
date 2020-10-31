@@ -194,6 +194,7 @@ void  Key_CallBack(Key_Message index)
 				temp += TIM5CH1_CAPTURE_VAL;//µÃµ½×ÜµÄ¸ßµçÆ½Ê±¼ä
 				printf("HIGH:%d us\r\n", temp);//´òÓ¡×ÜµÄ¸ßµãÆ½Ê±¼ä
 				TIM5CH1_CAPTURE_STA = 0;//¿ªÆôÏÂÒ»´Î²¶»ñ
+				
 				flag = 0;
 			}
 			
