@@ -13,7 +13,7 @@
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
   *                             www.st.com/SLA0044
-  *
+  *弹跳检测项目
   ******************************************************************************
   */
 /* USER CODE END Header */
