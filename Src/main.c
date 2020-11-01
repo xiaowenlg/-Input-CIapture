@@ -26,6 +26,8 @@
 #include "usart.h"
 #include "gpio.h"
 #include "button.h"
+#include "WTN6.h"
+#include "dwt_stm32_delay.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -100,13 +102,16 @@ int main(void)
   MX_USART3_UART_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
-  Key_Init();
-  Key_regist();
+ 
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT(&htim2);
-  HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 500);//ÉèÖÃ¸ßµçÆ½Ê±¼ä
+  DWT_Delay_Init();//微秒定时初始化
+  Key_Init();//按键初始化
+  Key_regist();//按键注册
+  WTN6_Gpio_Init();//语音芯片初始化
+  HAL_TIM_Base_Start_IT(&htim2);//TIM2基本中断
+  HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);//TIM2捕获中断
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);//开启pwm
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 500);//设置pwm高电平宽度
  
   /* USER CODE END 2 */
 

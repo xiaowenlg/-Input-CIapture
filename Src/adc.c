@@ -19,7 +19,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "adc.h"
-
+#include "BspConfig.h"
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */

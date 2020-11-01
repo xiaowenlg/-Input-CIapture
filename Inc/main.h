@@ -60,16 +60,9 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define IR_IN_Pin GPIO_PIN_0
 #define IR_IN_GPIO_Port GPIOA
-#define V_TEST_Pin GPIO_PIN_4
-#define V_TEST_GPIO_Port GPIOA
 #define PWM_OUT_Pin GPIO_PIN_6
 #define PWM_OUT_GPIO_Port GPIOA
-#define WTN6040_DATA_Pin GPIO_PIN_12
-#define WTN6040_DATA_GPIO_Port GPIOB
-#define WTN6040_SCK_Pin GPIO_PIN_13
-#define WTN6040_SCK_GPIO_Port GPIOB
-#define WTN6040_BUSY_Pin GPIO_PIN_14
-#define WTN6040_BUSY_GPIO_Port GPIOB
+
 
 /* USER CODE BEGIN Private defines */
 void  Key_regist(void);

@@ -757,6 +757,9 @@
 #ifndef __UDQ_FBIT__
 #define __UDQ_FBIT__ 64
 #endif
+#ifndef DEBUG
+#define DEBUG 1
+#endif
 #ifndef __INT8_TYPE__
 #define __INT8_TYPE__ signed char
 #endif
@@ -1339,9 +1342,6 @@
 #ifndef __ATOMIC_RELEASE
 #define __ATOMIC_RELEASE 3
 #endif
-#ifndef DEBUG
-#define DEBUG 1
-#endif
 #endif
 
 // --- Include directories begin --- //
@@ -1353,6 +1353,22 @@
 //$(TOOLCHAIN_ROOT)\lib\gcc\arm-eabi\7.2.0\include-fixed
 //$(TOOLCHAIN_ROOT)\arm-eabi\sys-include
 //$(TOOLCHAIN_ROOT)\arm-eabi\include
+//..\..\Inc
+//..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include
+//..\..\Drivers\STM32F1xx_HAL_Driver\Inc
+//..\..\Middlewares\Third_Party\FreeRTOS\Source\include
+//..\..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS
+//..\..\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM3
+//..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy
+//..\..\Drivers\STM32F1xx_HAL_Driver\Src
+//../../Drivers/CMSIS/Device/ST/STM32F1xx/Include
+//../../Drivers/CMSIS/Include
+//../../Drivers/STM32F1xx_HAL_Driver/Inc
+//../../Inc
+//../../Drivers/CMSIS/RTOS/Template
+//../../Middlewares/Third_Party/FreeRTOS/Source/include
+//../../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3
+//../../perpheral
 // --- Include directories end --- //
 
 
