@@ -375,6 +375,9 @@
     <ClCompile Include="..\..\perpheral\WTN6.c">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\perpheral\BspSound.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Inc\button.h">
@@ -396,6 +399,9 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\perpheral\WTN6.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\perpheral\BspSound.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>
