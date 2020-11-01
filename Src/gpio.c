@@ -40,7 +40,18 @@
 void MX_GPIO_Init(void)
 {
 
-  /* GPIO Ports Clock Enable */
+	GPIO_InitTypeDef GPIO_InitStruct = { 0 };
+	/* GPIO Ports Clock Enable */
+	__HAL_RCC_GPIOB_CLK_ENABLE();
+	/*红外开关管电源开关引脚*/
+	/*PB0---OUT*/ /*和 PB1---OUT*/
+	HAL_GPIO_WritePin(IR1_PORT, IR1_Pin | IR2_Pin, GPIO_PIN_SET);//初始化高电平
+	GPIO_InitStruct.Pin = IR1_Pin|IR2_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_PULLUP;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+	HAL_GPIO_Init(IR1_PORT, &GPIO_InitStruct);
+ 
 
   /*Configure GPIO pin Output Level */
  

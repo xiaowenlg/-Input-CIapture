@@ -32,7 +32,9 @@
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN Private defines */
-
+#define  IR1_Pin		GPIO_PIN_0	//红外开关电源开关引脚，高电平开
+#define  IR1_PORT		GPIOB
+#define	 IR2_Pin		GPIO_PIN_1	//红外对管开关引脚
 /* USER CODE END Private defines */
 
 void MX_GPIO_Init(void);

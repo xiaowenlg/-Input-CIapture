@@ -137,24 +137,8 @@ void StartDefaultTask(void const * argument)
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
   for(;;)
-  {
-	
-	 // scanf("slkdjflksjfkljsdklf");
-	  //if(TIM5CH1_CAPTURE_STA & 0X80)
-	  //{
-		 // temp = TIM5CH1_CAPTURE_STA & 0X3F;
-		 // temp *= 65536;//Òç³öÊ±¼ä×ÜºÍ
-		 // temp += TIM5CH1_CAPTURE_VAL;//µÃµ½×ÜµÄ¸ßµçÆ½Ê±¼ä
-		 //printf("HIGH:%d us\r\n", temp);//´òÓ¡×ÜµÄ¸ßµãÆ½Ê±¼ä
-		 // TIM5CH1_CAPTURE_STA = 0;//¿ªÆôÏÂÒ»´Î²¶»ñ
-	  //}
-	 //printf("Test over!\r\n");
-	// printf1("Value is %d", HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_11));
+  { 
 	 ScanKeys(&KeyValue_t, &lastvalue_t, keys, Key_CallBack);
-	 
-		 
-	 
-	  
     osDelay(20);
   }
   /* USER CODE END StartDefaultTask */
