@@ -58,6 +58,7 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+// ‰»Î≤∂ªÒ“˝Ω≈PA0
 #define IR_IN_Pin GPIO_PIN_0
 #define IR_IN_GPIO_Port GPIOA
 #define PWM_OUT_Pin GPIO_PIN_6
