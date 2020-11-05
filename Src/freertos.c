@@ -55,7 +55,7 @@ uint16_t KeyValue_t = 0xffff; uint16_t lastvalue_t = 0xffff;
 Key_Message keys[2] = { 0 };
 uint8_t flag = 0;
 float res;
-
+uint8_t led_renum = 0;
 //线程句柄
 osThreadId SensorDriveHandle;//传感器驱动线程
 osThreadId ListenerTaskHandle;    //监听线程
@@ -169,7 +169,7 @@ void Listener_CallBack(void const *argument)
 	for (;;)
 	{
 		//printf1("task listener************************** \r\n");
-		HAL_GPIO_TogglePin(LED_LEFT_PORT, LED_LEFT_PIN | LED_RIGHT_PIN);
+		HAL_GPIO_TogglePin(LED_LEFT_PORT, LED_LEFT_PIN);
 		osDelay(500);
 	}
 }
@@ -196,11 +196,18 @@ void  Key_CallBack(Key_Message index)
 		printf1("The KEY_USER is passed_pin11!\r\n");
 		flag = 1;
 		TIM5CH1_CAPTURE_STA = 0;
+		BeginSound();
 		while (flag)
 		{
 			
 			printf1("in while \r\n");
 			osDelay(10);
+			if (led_renum++ > 50)
+			{
+				led_renum = 0;
+				HAL_GPIO_TogglePin(LED_LEFT_PORT, LED_RIGHT_PIN);//跳起后此led闪耀
+			}
+				
 			if (TIM5CH1_CAPTURE_STA & 0X80)
 			{
 				temp = TIM5CH1_CAPTURE_STA & 0X3F;
@@ -211,6 +218,7 @@ void  Key_CallBack(Key_Message index)
 				res = temp / 1000.00 / 1000.00;
 				//res = (res*10);
 				printf("HIGH/1000====%dmm\r\n", (uint32_t)(res*res*1250));////输出毫米
+				ProcessHeight(res*res * 1250/10.00);
 				flag = 0;
 			}
 			

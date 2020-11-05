@@ -19,7 +19,7 @@ void BeginSound()
 	osDelay(100);
 	WTN6_PlayOneByte(CESHI_KAISHI);
 }
-uint8_t ProcessHeight(double numdata)//身高
+uint8_t ProcessHeight(double numdata)//纵跳高度
 {
 	uint8_t dat[16] = { 0 };
 	uint8_t reslen = 0, templen = 0;
