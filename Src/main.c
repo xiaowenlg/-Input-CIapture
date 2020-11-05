@@ -14,6 +14,7 @@
   * the License. You may obtain a copy of the License at:
   *                             www.st.com/SLA0044
   *弹跳检测项目
+  *程序基本完成，等待测试 2020/11/12
   ******************************************************************************
   */
 /* USER CODE END Header */

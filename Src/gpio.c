@@ -51,7 +51,13 @@ void MX_GPIO_Init(void)
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
 	HAL_GPIO_Init(IR1_PORT, &GPIO_InitStruct);
- 
+
+	GPIO_InitStruct.Pin = LED_LEFT_PIN | LED_RIGHT_PIN;
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_PULLUP;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+	HAL_GPIO_Init(LED_LEFT_PORT, &GPIO_InitStruct);
+	HAL_GPIO_WritePin(LED_LEFT_PORT, LED_LEFT_PIN | LED_RIGHT_PIN, GPIO_PIN_SET);//初始化高电平
 
   /*Configure GPIO pin Output Level */
  

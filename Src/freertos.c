@@ -24,7 +24,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "WTN6.h"
-
+#include "gpio.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */     
 #include "button.h"
@@ -169,6 +169,7 @@ void Listener_CallBack(void const *argument)
 	for (;;)
 	{
 		//printf1("task listener************************** \r\n");
+		HAL_GPIO_TogglePin(LED_LEFT_PORT, LED_LEFT_PIN | LED_RIGHT_PIN);
 		osDelay(500);
 	}
 }
