@@ -29,5 +29,6 @@ uint8_t ProcessHeight(double numdata)//×ÝÌø¸ß¶È
 	dat[2] = GONG_FEN;
 	reslen = insertArray(dat, 3, tdat, templen, 2);
 	WTN6_PlayArray(reslen, dat);
+	WTN6_PlayOneByte(HUAN_ZAI_CI_YING);
 	return reslen;
 }

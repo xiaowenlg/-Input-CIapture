@@ -159,7 +159,7 @@ void StartDefaultTask(void const * argument)
 /* USER CODE BEGIN Application */
 void SensorDrive_CallBack(void const *argument)
 {
-	WTN6_PlayOneByte(0xe1);//调节音量
+	WTN6_PlayOneByte(0xe3);//调节音量
 	osDelay(100);
 	for (;;)
 	{
