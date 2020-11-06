@@ -16,7 +16,6 @@ void Firstmuis()            //开头语音
 void BeginSound()
 {
 	WTN6_PlayOneByte(YIN_XIAO_61);
-	osDelay(100);
 	WTN6_PlayOneByte(CESHI_KAISHI);
 }
 uint8_t ProcessHeight(double numdata)//纵跳高度

@@ -24,10 +24,12 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "WTN6.h"
-#include "gpio.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */     
 #include "button.h"
+#include "gpio.h"
+#include "BspSound.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -157,6 +159,8 @@ void StartDefaultTask(void const * argument)
 /* USER CODE BEGIN Application */
 void SensorDrive_CallBack(void const *argument)
 {
+	WTN6_PlayOneByte(0xe1);//调节音量
+	osDelay(100);
 	for (;;)
 	{
 		ScanKeys(&KeyValue_t, &lastvalue_t, keys, Key_CallBack);
@@ -215,10 +219,11 @@ void  Key_CallBack(Key_Message index)
 				temp += TIM5CH1_CAPTURE_VAL;////得到总的高电平时间
 				printf("HIGH:%d us\r\n", temp);//打印总的高点平时间
 				TIM5CH1_CAPTURE_STA = 0;//开始下一次捕获
+				osDelay(1000); //延时一会
 				res = temp / 1000.00 / 1000.00;
 				//res = (res*10);
 				printf("HIGH/1000====%dmm\r\n", (uint32_t)(res*res*1250));////输出毫米
-				ProcessHeight(res*res * 1250/10.00);
+				ProcessHeight((double)(res*res * 1250 / 10.00));
 				flag = 0;
 			}
 			
