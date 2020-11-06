@@ -161,6 +161,7 @@ void SensorDrive_CallBack(void const *argument)
 {
 	WTN6_PlayOneByte(0xe3);//调节音量
 	osDelay(100);
+	Firstmuis();
 	for (;;)
 	{
 		ScanKeys(&KeyValue_t, &lastvalue_t, keys, Key_CallBack);
@@ -173,6 +174,7 @@ void Listener_CallBack(void const *argument)
 	for (;;)
 	{
 		//printf1("task listener************************** \r\n");
+		
 		HAL_GPIO_TogglePin(LED_LEFT_PORT, LED_LEFT_PIN);
 		osDelay(500);
 	}
