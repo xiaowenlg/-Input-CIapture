@@ -162,6 +162,7 @@ void SensorDrive_CallBack(void const *argument)
 	WTN6_PlayOneByte(0xe3);//调节音量
 	osDelay(100);
 	Firstmuis();
+	
 	for (;;)
 	{
 		ScanKeys(&KeyValue_t, &lastvalue_t, keys, Key_CallBack);
@@ -228,6 +229,7 @@ void  Key_CallBack(Key_Message index)
 				ProcessHeight((double)(res*res * 1250 / 10.00));
 				flag = 0;
 			}
+			//在此处可以加入没跳提示
 			
 		}
 		
