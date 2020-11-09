@@ -182,7 +182,7 @@ void Listener_CallBack(void const *argument)
 {
 	for (;;)
 	{
-		//printf1("task listener************************** \r\n");
+		//printf1("task listener************************** %d\r\n", ADC_Conversion(&hadc1, 10));
 		xSemaphoreTake(xSemaphore_WTN6_TFT, portMAX_DELAY);
 		{
 			write_variable_store_82_1word(0x0003, ADC_GetValue(&hadc1, 10));//向TFT屏传输数据
@@ -215,7 +215,9 @@ void  Key_CallBack(Key_Message index)
 		printf1("The KEY_USER is passed_pin11!\r\n");
 		flag = 1;
 		TIM5CH1_CAPTURE_STA = 0;
+		write_register_80_1byte(TFT_BUTTON, 1);//开屏
 		write_variable_store_82_1word(0x0004, 0x0001); //打开动画图标
+		write_variable_store_82_1word(0x0005, 0);//关闭出错报警动画
 		BeginSound();
 		while (flag)
 		{
@@ -239,18 +241,28 @@ void  Key_CallBack(Key_Message index)
 				res = temp / 1000.00 / 1000.00;
 				//res = (res*10);
 				res_jump_high = (uint16_t)(res*res * 1250);////输出毫米
-				printf("HIGH/1000====%dmm\r\n", res_jump_high);////输出毫米
-				write_variable_store_82_1word(0x0001, res_jump_high); //发送数据到TFT
-				//播放时不传输数据
-				xSemaphoreTake(xSemaphore_WTN6_TFT, portMAX_DELAY);
+				if (res_jump_high < HIGH_MAX)                            //防止按钮按钮后在站到站立位置，或离开的清空(只捕捉到上升沿或下减沿会触发这个if)
 				{
-					write_variable_store_82_1word(0x0002, 0x0001); //打开动画图标
-					ProcessHeight((double)(res*res * 1250 / 10.00));
-					write_variable_store_82_1word(0x0002, 0); //关闭动画图标
-					flag = 0;
-					write_variable_store_82_1word(0x0004, 0); //关闭动画图标
+					printf("HIGH/1000====%dmm\r\n", res_jump_high);////输出毫米
+					write_variable_store_82_1word(0x0001, res_jump_high); //发送数据到TFT
+					//播放时不传输数据
+					xSemaphoreTake(xSemaphore_WTN6_TFT, portMAX_DELAY);
+					{
+						write_variable_store_82_1word(0x0002, 0x0001); //打开动画图标
+						ProcessHeight((double)(res*res * 1250 / 10.00));
+						write_variable_store_82_1word(0x0002, 0); //关闭动画图标
+						flag = 0;
+						write_variable_store_82_1word(0x0004, 0); //关闭动画图标
+					}
+					xSemaphoreGive(xSemaphore_WTN6_TFT);
 				}
-				xSemaphoreGive(xSemaphore_WTN6_TFT);
+				else
+				{
+					write_variable_store_82_1word(0x0005, 1);//出错报警
+					flag = 0;
+				}
+					
+				
 			}
 			//在此处可以加入没跳提示
 			
