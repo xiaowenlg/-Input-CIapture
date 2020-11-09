@@ -30,6 +30,10 @@
 #include "button.h"
 #include "gpio.h"
 #include "BspSound.h"
+#include "adc.h"
+#include "APPTooL.h"
+#include "BspConfig.h"
+#include "application.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,6 +62,10 @@ Key_Message keys[2] = { 0 };
 uint8_t flag = 0;
 float res;
 uint8_t led_renum = 0;
+uint16_t res_jump_high = 0;//测试结果
+uint16_t speak_flag = 0;//喇叭图标
+//线程同步
+extern SemaphoreHandle_t xSemaphore_WTN6_TFT; //串口，语音播放互斥量
 //线程句柄
 osThreadId SensorDriveHandle;//传感器驱动线程
 osThreadId ListenerTaskHandle;    //监听线程
@@ -175,7 +183,11 @@ void Listener_CallBack(void const *argument)
 	for (;;)
 	{
 		//printf1("task listener************************** \r\n");
-		
+		xSemaphoreTake(xSemaphore_WTN6_TFT, portMAX_DELAY);
+		{
+			write_variable_store_82_1word(0x0003, ADC_GetValue(&hadc1, 10));//向TFT屏传输数据
+		}
+		xSemaphoreGive(xSemaphore_WTN6_TFT);
 		HAL_GPIO_TogglePin(LED_LEFT_PORT, LED_LEFT_PIN);
 		osDelay(500);
 	}
@@ -203,6 +215,7 @@ void  Key_CallBack(Key_Message index)
 		printf1("The KEY_USER is passed_pin11!\r\n");
 		flag = 1;
 		TIM5CH1_CAPTURE_STA = 0;
+		write_variable_store_82_1word(0x0004, 0x0001); //打开动画图标
 		BeginSound();
 		while (flag)
 		{
@@ -225,9 +238,19 @@ void  Key_CallBack(Key_Message index)
 				osDelay(1000); //延时一会
 				res = temp / 1000.00 / 1000.00;
 				//res = (res*10);
-				printf("HIGH/1000====%dmm\r\n", (uint32_t)(res*res*1250));////输出毫米
-				ProcessHeight((double)(res*res * 1250 / 10.00));
-				flag = 0;
+				res_jump_high = (uint16_t)(res*res * 1250);////输出毫米
+				printf("HIGH/1000====%dmm\r\n", res_jump_high);////输出毫米
+				write_variable_store_82_1word(0x0001, res_jump_high); //发送数据到TFT
+				//播放时不传输数据
+				xSemaphoreTake(xSemaphore_WTN6_TFT, portMAX_DELAY);
+				{
+					write_variable_store_82_1word(0x0002, 0x0001); //打开动画图标
+					ProcessHeight((double)(res*res * 1250 / 10.00));
+					write_variable_store_82_1word(0x0002, 0); //关闭动画图标
+					flag = 0;
+					write_variable_store_82_1word(0x0004, 0); //关闭动画图标
+				}
+				xSemaphoreGive(xSemaphore_WTN6_TFT);
 			}
 			//在此处可以加入没跳提示
 			
@@ -235,6 +258,19 @@ void  Key_CallBack(Key_Message index)
 		
 	}
 }
+
+//向TFT屏发送数据
+//void SendMessageToTFT(uint16_t address)
+//{
+//	uint16_t TFT_SendArray[3] = { 0 };
+//	double bmires = 0.00;
+//	uint16_t TFT_bmi = 0;
+//
+//	TFT_SendArray[2] = 
+//	TFT_SendArray[3] = ADC_GetValue(&hadc1, 10);			//电池电量
+//	write_multiple_variable_store_82(address, 4, TFT_SendArray);
+//	//write_register_80_1byte(TFT_BUTTON, 1);
+//}
 /* USER CODE END Application */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

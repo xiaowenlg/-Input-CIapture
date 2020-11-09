@@ -65,7 +65,7 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+SemaphoreHandle_t xSemaphore_WTN6_TFT; //串口，语音播放互斥量
 /* USER CODE END 0 */
 
 /**
@@ -92,7 +92,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+  xSemaphore_WTN6_TFT = xSemaphoreCreateMutex();//创建互斥量
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -113,6 +113,7 @@ int main(void)
   HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);//TIM2捕获中断
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);//开启pwm
   __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 500);//设置pwm高电平宽度
+  HAL_ADCEx_Calibration_Start(&hadc1);    //AD校准
  
   /* USER CODE END 2 */
 
